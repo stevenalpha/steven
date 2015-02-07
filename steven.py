@@ -297,8 +297,6 @@ class C():
 
 class MD5():
     """MD5 function string to hex"""
-    def __init__(self):
-        self.__init__()
 
     @staticmethod
     def md5(raw_message):
