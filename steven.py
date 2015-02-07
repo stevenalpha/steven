@@ -246,26 +246,30 @@ class TLD():
 
 
 class C():
-    EMERG  = 0
-    ALERT  = 1
-    CRIT   = 2
-    ERROR  = 3
-    WARN   = 4
-    NOTICE = 5
-    INFO   = 6
-    DEBUG  = 7
+    EMERG  = 7
+    ALERT  = 6
+    CRIT   = 5
+    ERROR  = 4
+    WARN   = 3
+    NOTICE = 2
+    INFO   = 1
+    DEBUG  = 0
 
-    priority = {0: 'EMERG', 1: 'ALERT', 2: 'CRIT', 3: 'ERROR',
-                4: 'WARN', 5: 'NOTICE', 6: 'INFO', 7: 'DEBUG'}
+    priority = {7: 'EMERG', 6: 'ALERT', 5: 'CRIT', 4: 'ERROR',
+                3: 'WARN', 2: 'NOTICE', 1: 'INFO', 0: 'DEBUG'}
 
     @staticmethod
     def info(msg, pri=6):
-        if pri <= C.check_debug_level():
+        if pri >= C.check_debug_level():
             msg = '[%s][%s]:%s' % (C.priority[pri], time.strftime('%Y-%m-%d %H:%M:%S'), msg)
             print msg
 
     @staticmethod
     def check_debug_level():
+        """
+        create an file named debug.info, then will filter message whose pri is lower than information
+        :return:
+        """
         if os.path.exists('debug.%s' % C.priority[0].lower()) :return C.EMERG
         if os.path.exists('debug.%s' % C.priority[1].lower()) :return C.ALERT
         if os.path.exists('debug.%s' % C.priority[2].lower()) :return C.CRIT
@@ -310,7 +314,7 @@ if __name__ == '__main__':
     print TLD.get_tld_name('www.google.com.cn')
     print TLD.parse('sina-xsdf.dd.google.com.cn')
 
-    HQ.queue_host = 'example.queue-server.com'
+    HQ.queue_host = 'example.httpsqs-server.com'
     print HQ.put('test', 'test content')
     print HQ.status('test')
     print HQ.unread('test')
