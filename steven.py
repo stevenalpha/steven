@@ -163,21 +163,38 @@ class HQ():
                            HQ.queue_charset, HQ.queue_password, HQ.queue_timeout)
         if not item:
             return ''
+        elif 'HTTPSQS_AUTH_FAILED' == item:
+            return ''
         else:
             return item
 
     @staticmethod
     def status(queue_name):
+        """
+        return status of httpsqs queue
+        :param queue_name:string
+        :return:string
+        """
         return HTTPSQS.status(queue_name, HQ.queue_host, HQ.queue_port,
-                              HQ.queue_charset, HQ.queue_password, HQ.queue_timeout)
+                              HQ.queue_charset, HQ.queue_password, HQ.queue_timeout).strip()
 
     @staticmethod
     def reset(queue_name):
+        """
+        reset a queue
+        :param queue_name:string
+        :return:string
+        """
         return HTTPSQS.reset(queue_name, HQ.queue_host, HQ.queue_port,
                              HQ.queue_charset, HQ.queue_password, HQ.queue_timeout)
 
     @staticmethod
     def unread(queue_name):
+        """
+        return how many unread message in a given queue name
+        :param queue_name:string
+        :return:int
+        """
         unread = 0
         status = HTTPSQS.status(queue_name, HQ.queue_host, HQ.queue_port,
                                 HQ.queue_charset, HQ.queue_password, HQ.queue_timeout)
@@ -259,7 +276,7 @@ class C():
                 3: 'WARN', 2: 'NOTICE', 1: 'INFO', 0: 'DEBUG'}
 
     @staticmethod
-    def info(msg, pri=6):
+    def info(msg, pri=1):
         if pri >= C.check_debug_level():
             msg = '[%s][%s]:%s' % (C.priority[pri], time.strftime('%Y-%m-%d %H:%M:%S'), msg)
             print msg
@@ -315,6 +332,7 @@ if __name__ == '__main__':
     print TLD.parse('sina-xsdf.dd.google.com.cn')
 
     HQ.queue_host = 'example.httpsqs-server.com'
+    HQ.queue_password = 'mypassword'
     print HQ.put('test', 'test content')
     print HQ.status('test')
     print HQ.unread('test')
