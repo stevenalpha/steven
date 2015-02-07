@@ -18,7 +18,7 @@ class HTTPSQS():
     """
     @staticmethod
     def get_http_content(url_target, data_post=None,  timeout=30):
-        opener = urllib2.build_opener()
+        opener  = urllib2.build_opener()
         urllib2.install_opener(opener)
         request = urllib2.Request(url_target, data=data_post)
         r = ''
@@ -336,7 +336,7 @@ if __name__ == '__main__':
     print TLD.get_tld_name(domain)
     print TLD.parse(domain)
 
-    HQ.queue_host = 'example.httpsqs-server.com'
+    HQ.queue_host     = 'example.httpsqs-server.com'
     HQ.queue_password = 'xxoo123'
     print HQ.put('test', 'test content')
     print HQ.status('test')
