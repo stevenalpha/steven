@@ -322,7 +322,36 @@ class MD5():
         """
         return MD5.md5(raw_message)[8:24]
 
+
+class FILE():
+    @staticmethod
+    def read_lines_ab(file_name, line_begin=0, line_count=0):
+        """
+        open file_name, and read line_count lines from line_begin.
+        :param file_name: string
+        :param line_begin: integer
+        :param line_count:integer
+        :return: array
+        """
+        mylines = []
+        if os.path.exists(file_name):
+            with open(file_name, 'r') as myfile:
+                for i in range(0, line_begin + line_count):
+                    if i < line_begin:
+                        myfile.readline()
+                        continue
+                    line = myfile.readline()
+                    if line:
+                        mylines.append(line)
+        return mylines
+
+
 if __name__ == '__main__':
+    lines = FILE.read_lines_ab('steven.py', 0, 10)
+    print lines
+    print len(lines)
+    exit()
+
     print MD5.md5('123456')
     print MD5.md5_16('123456')
 
