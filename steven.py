@@ -350,7 +350,6 @@ if __name__ == '__main__':
     lines = FILE.read_lines_ab('steven.py', 0, 10)
     print lines
     print len(lines)
-    exit()
 
     print MD5.md5('123456')
     print MD5.md5_16('123456')
