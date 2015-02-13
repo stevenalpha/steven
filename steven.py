@@ -295,6 +295,7 @@ class C():
         if os.path.exists('debug.%s' % C.priority[7].lower()) :return C.DEBUG
         return C.INFO
 
+
 class MD5():
     """MD5 function string to hex"""
 
@@ -345,8 +346,26 @@ class FILE():
                         mylines.append(line)
         return mylines
 
+    @staticmethod
+    def count_file_lines(file_name):
+        """
+        return lines of a file
+        :param file_name:string file name
+        :return:integer
+        """
+        lines = 0
+        try:
+            with open(file_name) as f:
+                for line in f:
+                    lines += 1
+        except:
+            pass
+        return lines
+
 
 if __name__ == '__main__':
+    print FILE.count_file_lines('steven.py')
+
     lines = FILE.read_lines_ab('steven.py', 0, 10)
     print lines
     print len(lines)
